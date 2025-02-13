@@ -1,0 +1,28 @@
+Sub vbaMacroBatchGetPropertyStateABRV()
+    Dim lastRow As Long
+    Dim ws As Worksheet
+    Set ws = ThisWorkbook.Sheets("Master Sheet") ' change this according to the name of sheet
+
+    lastRow = ws.Cells(ws.Rows.Count, "X").End(xlUp).Row ' Now checking for last row in column X
+    Dim batchSize As Long
+    batchSize = 1000 ' Adjust the batch size if needed
+
+    Dim i As Long, j As Long
+    For i = 2 To lastRow Step batchSize
+        ' Disable updates for each batch
+        Application.ScreenUpdating = False
+        Application.Calculation = xlCalculationManual
+
+        ' Process the batch
+        For j = i To Application.WorksheetFunction.Min(i + batchSize - 1, lastRow)
+            ws.Cells(j, "Y").Value = GetStateAbbreviation(ws.Cells(j, "X").Value) ' Referencing column X now
+        Next j
+
+        ' Re-enable updates after each batch (optional)
+        Application.ScreenUpdating = True
+        Application.Calculation = xlCalculationAutomatic
+    Next i
+
+    MsgBox "State abbreviations applied to all rows in column Y."
+End Sub
+

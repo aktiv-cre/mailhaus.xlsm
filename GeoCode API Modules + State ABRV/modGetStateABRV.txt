@@ -1,0 +1,73 @@
+Function GetStateAbbreviation(StateName As String) As String
+    Dim stateDict As Object
+    Set stateDict = CreateObject("Scripting.Dictionary")
+    
+    ' Add state names and their corresponding abbreviations
+    stateDict.Add "Alabama", "AL"
+    stateDict.Add "Alaska", "AK"
+    stateDict.Add "Arizona", "AZ"
+    stateDict.Add "Arkansas", "AR"
+    stateDict.Add "California", "CA"
+    stateDict.Add "Colorado", "CO"
+    stateDict.Add "Connecticut", "CT"
+    stateDict.Add "Delaware", "DE"
+    stateDict.Add "Florida", "FL"
+    stateDict.Add "Georgia", "GA"
+    stateDict.Add "Hawaii", "HI"
+    stateDict.Add "Idaho", "ID"
+    stateDict.Add "Illinois", "IL"
+    stateDict.Add "Indiana", "IN"
+    stateDict.Add "Iowa", "IA"
+    stateDict.Add "Kansas", "KS"
+    stateDict.Add "Kentucky", "KY"
+    stateDict.Add "Louisiana", "LA"
+    stateDict.Add "Maine", "ME"
+    stateDict.Add "Maryland", "MD"
+    stateDict.Add "Massachusetts", "MA"
+    stateDict.Add "Michigan", "MI"
+    stateDict.Add "Minnesota", "MN"
+    stateDict.Add "Mississippi", "MS"
+    stateDict.Add "Missouri", "MO"
+    stateDict.Add "Montana", "MT"
+    stateDict.Add "Nebraska", "NE"
+    stateDict.Add "Nevada", "NV"
+    stateDict.Add "New Hampshire", "NH"
+    stateDict.Add "New Jersey", "NJ"
+    stateDict.Add "New Mexico", "NM"
+    stateDict.Add "New York", "NY"
+    stateDict.Add "North Carolina", "NC"
+    stateDict.Add "North Dakota", "ND"
+    stateDict.Add "Ohio", "OH"
+    stateDict.Add "Oklahoma", "OK"
+    stateDict.Add "Oregon", "OR"
+    stateDict.Add "Pennsylvania", "PA"
+    stateDict.Add "Rhode Island", "RI"
+    stateDict.Add "South Carolina", "SC"
+    stateDict.Add "South Dakota", "SD"
+    stateDict.Add "Tennessee", "TN"
+    stateDict.Add "Texas", "TX"
+    stateDict.Add "Utah", "UT"
+    stateDict.Add "Vermont", "VT"
+    stateDict.Add "Virginia", "VA"
+    stateDict.Add "Washington", "WA"
+    stateDict.Add "West Virginia", "WV"
+    stateDict.Add "Wisconsin", "WI"
+    stateDict.Add "Wyoming", "WY"
+    
+    ' Check if the input is already a valid 2-letter abbreviation
+    Dim key As Variant
+    For Each key In stateDict.Items
+        If key = UCase(StateName) Then
+            GetStateAbbreviation = StateName
+            Exit Function
+        End If
+    Next key
+    
+    ' Check if the input is a valid state name
+    If stateDict.Exists(StateName) Then
+        GetStateAbbreviation = stateDict(StateName)
+    Else
+        GetStateAbbreviation = "Invalid State"
+    End If
+End Function
+

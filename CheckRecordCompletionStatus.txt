@@ -1,0 +1,33 @@
+Sub vbaMacroRecordCompletionStatus()
+    Dim lastRow As Long
+    Dim ws As Worksheet
+    Set ws = ThisWorkbook.Sheets("Master Sheet") ' Updated sheet name
+
+    lastRow = ws.Cells(ws.Rows.Count, "C").End(xlUp).Row ' Find the last row based on column C (or any column you know will have data)
+    
+    Dim i As Long
+    For i = 2 To lastRow ' Starting from row 2 (assuming row 1 is headers)
+        If ws.Cells(i, "C").Value <> "" And _
+           ws.Cells(i, "M").Value <> "" And _
+           ws.Cells(i, "N").Value <> "" And _
+           ws.Cells(i, "Q").Value <> "" And _
+           ws.Cells(i, "W").Value <> "" And _
+           ws.Cells(i, "Y").Value <> "" And _
+           ws.Cells(i, "Z").Value <> "" And _
+           ws.Cells(i, "AB").Value <> "" And _
+           ws.Cells(i, "AD").Value <> "" And _
+           ws.Cells(i, "AG").Value <> "" And _
+           ws.Cells(i, "AM").Value <> "" And _
+           ws.Cells(i, "AO").Value <> "" And _
+           ws.Cells(i, "AR").Value <> "" And _
+           ws.Cells(i, "AT").Value <> "" Then
+            ws.Cells(i, "A").Value = "Complete"
+        Else
+            ws.Cells(i, "A").Value = "Incomplete"
+        End If
+    Next i
+
+    MsgBox "Completion status updated in column A."
+End Sub
+
+

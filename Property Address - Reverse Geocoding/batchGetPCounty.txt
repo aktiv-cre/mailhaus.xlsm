@@ -1,0 +1,16 @@
+Sub vbaMacroBatchGetPropertyCounty()
+    Dim lastRow As Long
+    Dim ws As Worksheet
+    Set ws = ThisWorkbook.Sheets("Master Sheet") ' Updated sheet name
+
+    lastRow = ws.Cells(ws.Rows.Count, "Q").End(xlUp).Row ' Find the last row based on Street column (Q)
+    
+    Dim i As Long
+    For i = 2 To lastRow ' Starting from row 2 (assuming row 1 is headers)
+        ' Call GetCountyFromParsedAddress with Street, City, and State only
+        ws.Cells(i, "AA").Value = GetCountyFromParsedAddress(ws.Cells(i, "Q").Value, ws.Cells(i, "W").Value, ws.Cells(i, "X").Value)
+    Next i
+
+    MsgBox "County results applied to all rows in column AA."
+End Sub
+

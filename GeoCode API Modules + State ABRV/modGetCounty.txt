@@ -1,0 +1,50 @@
+Function GetCountyFromParsedAddress(street As String, city As String, state As String) As String
+    Dim http As Object
+    Dim JSON As Object
+    Dim result As Object
+    Dim component As Object
+    Dim addressComponent As Variant
+    Dim apiKey As String
+    Dim url As String
+    Dim county As String
+    Dim fullAddress As String
+
+    ' Replace with your actual API key
+    apiKey = "YOUR API KEY HERE"
+    
+    ' Combine Street, City, and State into a full address string
+    fullAddress = street & ", " & city & ", " & state
+    
+    ' Construct the request URL for the Geocoding API
+    url = "https://maps.googleapis.com/maps/api/geocode/json?address=" & Replace(fullAddress, " ", "+") & "&key=" & apiKey
+    
+    ' Create a new XMLHttpRequest object
+    Set http = CreateObject("MSXML2.XMLHTTP")
+    http.Open "GET", url, False
+    http.Send
+    
+    ' Parse the JSON response using JsonConverter
+    Set JSON = JsonConverter.ParseJson(http.responseText)
+    
+    ' Initialize county as a fallback
+    county = "County not found"
+    
+    ' Loop through the results and address components to find the county
+    For Each result In JSON("results")
+        For Each component In result("address_components")
+            ' Check each address component's types for "administrative_area_level_2"
+            For Each addressComponent In component("types")
+                If addressComponent = "administrative_area_level_2" Then
+                    ' Extract the county name
+                    county = component("long_name")
+                    Exit For
+                End If
+            Next addressComponent
+        Next component
+        If county <> "County not found" Then Exit For
+    Next result
+    
+    ' Return the county
+    GetCountyFromParsedAddress = county
+End Function
+

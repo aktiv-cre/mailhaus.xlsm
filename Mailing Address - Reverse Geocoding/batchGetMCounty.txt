@@ -1,0 +1,17 @@
+Sub vbaMacroBatchGetMailingCounty()
+    Dim lastRow As Long
+    Dim ws As Worksheet
+    Set ws = ThisWorkbook.Sheets("Master Sheet") ' change this according to the name of sheet
+
+    lastRow = ws.Cells(ws.Rows.Count, "AG").End(xlUp).Row ' Find the last row based on Street column (AG)
+    
+    Dim i As Long
+    For i = 2 To lastRow ' Starting from row 2 (assuming row 1 is headers)
+        ' Call GetCountyFromParsedAddress with Street, City, and State only
+        ws.Cells(i, "AS").Value = GetCountyFromParsedAddress(ws.Cells(i, "AG").Value, ws.Cells(i, "AM").Value, ws.Cells(i, "AO").Value) ' these are the reference cells (mailing street 1, city, state)
+    Next i
+
+    MsgBox "County results applied to all rows in column AS."
+End Sub
+
+
