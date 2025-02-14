@@ -1,0 +1,28 @@
+Sub vbaMacroBatchGetMailingZip()
+    Dim lastRow As Long
+    Dim ws As Worksheet
+    Set ws = ThisWorkbook.Sheets("Master Sheet") ' Change this according to the name of the sheet
+
+    lastRow = ws.Cells(ws.Rows.Count, "AG").End(xlUp).Row ' Find the last row based on Street column (AG)
+    
+    Dim i As Long
+    For i = 2 To lastRow ' Starting from row 2 (assuming row 1 is headers)
+        Dim street As String
+        street = ws.Cells(i, "AG").Value
+
+        ' Only process rows where AQ is blank and street is valid
+        If street <> "" And street <> "PO Box" And street <> "P.O. Box" And ws.Cells(i, "AQ").Value = "" Then
+            On Error Resume Next ' Skip any errors and continue
+            ' Call GetPostalCodeFromParsedAddress with Street, City, and State
+            ws.Cells(i, "AQ").Value = GetPostalCodeFromParsedAddress(ws.Cells(i, "AG").Value, ws.Cells(i, "AM").Value, ws.Cells(i, "AO").Value) ' Reference cells: mailing street 1, state, zip
+            If Err.Number <> 0 Then
+                ' Log error message in another column, e.g., column AR
+                ws.Cells(i, "AR").Value = "Error: " & Err.Description
+                Err.Clear
+            End If
+            On Error GoTo 0 ' Resume normal error handling
+        End If
+    Next i
+
+    MsgBox "Zip codes applied to all unprocessed rows in column AQ."
+End Sub
