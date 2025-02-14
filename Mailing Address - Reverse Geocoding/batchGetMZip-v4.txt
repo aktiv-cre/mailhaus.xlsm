@@ -13,7 +13,7 @@ Sub vbaMacroBatchGetMailingZip()
         ' Skip rows where street is "PO Box", "P.O. Box", or empty
         If street <> "" And street <> "PO Box" And street <> "P.O. Box" Then
             ' Call GetPostalCodeFromParsedAddress with Street, City, and State
-            ws.Cells(i, "AQ").Value = GetPostalCodeFromParsedAddress(ws.Cells(i, "AG").Value, ws.Cells(i, "AM").Value, ws.Cells(i, "AO").Value) ' Reference cells: mailing street 1, state, zip
+            ws.Cells(i, "AQ").Value = GetPostalCodeFromParsedAddress(ws.Cells(i, "AG").Value, ws.Cells(i, "AM").Value, ws.Cells(i, "AO").Value) ' Reference cells: mailing street 1, city, state
         End If
     Next i
 
