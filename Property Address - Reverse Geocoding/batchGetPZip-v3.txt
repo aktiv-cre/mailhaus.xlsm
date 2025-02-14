@@ -1,0 +1,38 @@
+Sub vbaMacroBatchGetPropertyZip()
+    Dim lastRow As Long
+    Dim ws As Worksheet
+    Set ws = ThisWorkbook.Sheets("Master Sheet") ' Change the sheet name as needed
+
+    lastRow = ws.Cells(ws.Rows.Count, "Q").End(xlUp).Row ' Find the last row based on Street column (Q)
+    
+    Dim i As Long, j As Long
+    Dim street As String, city As String, state As String, zipCode As String
+
+    For i = 2 To lastRow ' Starting from row 2 (assuming row 1 is headers)
+        street = ws.Cells(i, "Q").Value
+        city = ws.Cells(i, "W").Value
+        state = ws.Cells(i, "Y").Value
+
+        ' Skip rows that are already processed
+        If ws.Cells(i, "AA").Value = "" Then
+            ' Check for duplicates in previous rows
+            zipCode = ""
+            For j = 2 To i - 1
+                If ws.Cells(j, "Q").Value = street And ws.Cells(j, "W").Value = city And ws.Cells(j, "Y").Value = state Then
+                    zipCode = ws.Cells(j, "AA").Value
+                    Exit For ' Stop checking once a match is found
+                End If
+            Next j
+
+            ' If a match is found, use the zip code from the matching row
+            If zipCode <> "" Then
+                ws.Cells(i, "AA").Value = zipCode
+            Else
+                ' Otherwise, make the API call to get the postal code
+                ws.Cells(i, "AA").Value = GetPostalCodeFromParsedAddress(street, city, state)
+            End If
+        End If
+    Next i
+
+    MsgBox "Zip codes applied to all rows in column AA."
+End Sub
