@@ -1,0 +1,7 @@
+Sub runMacros_property()
+    ' Call each macro one after the other
+    Call vbaMacroBatchGetPropertyCounty
+    Call vbaMacroBatchGetPropertyStateABRV
+    Call vbaMacroBatchGetPropertyZip
+    Call vbaMacroRecordCompletionStatus
+End Sub

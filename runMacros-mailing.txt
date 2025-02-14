@@ -1,0 +1,7 @@
+Sub runMacros_mailing()
+    ' Call each macro one after the other
+    Call vbaMacroBatchGetMailingCounty
+    Call vbaMacroBatchGetMailingStateABRV
+    Call vbaMacroBatchGetMailingZip
+    Call vbaMacroRecordCompletionStatus
+End Sub
