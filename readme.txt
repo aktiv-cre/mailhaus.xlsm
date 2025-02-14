@@ -1,5 +1,5 @@
-hi, and thank you for downloading the mailhaus.xlsx mailing mothafuckin machine to meet
-all your reverse geocoding needs for optimal direct mailing campaigns and the overall reduction of mailmerge errors.
+hi, and thank you for downloading the mailhaus.xlsx mailing machine to meet all your 
+reverse geocoding needs for optimal direct mailing campaigns and the overall reduction of mail merge errors.
 
 	
 you will find a number of files in this repository, so allow me to walk you 
