@@ -7,8 +7,8 @@ Sub vbaMacroBatchGetPropertyZip()
     
     Dim i As Long
     For i = 2 To lastRow ' Starting from row 2 (assuming row 1 is headers)
-        ' Call GetZipCodeFromParsedAddress with Street, City, and State
-        ws.Cells(i, "AA").Value = GetZipCodeFromParsedAddress(ws.Cells(i, "Q").Value, ws.Cells(i, "W").Value, ws.Cells(i, "Y").Value) ' these are the reference cells (mailing street 1, state, zip)
+        ' Call GetPostalCodeFromParsedAddress with Street, City, and State
+        ws.Cells(i, "AA").Value = GetPostalCodeFromParsedAddress(ws.Cells(i, "Q").Value, ws.Cells(i, "W").Value, ws.Cells(i, "Y").Value) ' these are the reference cells (mailing street 1, city, state)
     Next i
 
     MsgBox "Zip codes applied to all rows in column AA."
